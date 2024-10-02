@@ -1,5 +1,5 @@
 import React from 'react';
-
+import "./MovieCard.scss";
 const MovieCard = (props) => {
     const { data } = props;
     return (
@@ -10,7 +10,7 @@ const MovieCard = (props) => {
                 </div>
                 <div className="card-bottom">
                     <div className="card-info">
-                        <h4>{data.title}</h4>
+                        <h4>{data.Title}</h4>
                         <p>{data.Year}</p>
                     </div>
                 </div>
