@@ -4,9 +4,9 @@
     background-color: $secondary-color;
     height: 72px;
     padding: 0px 40px;
-    display:flex;
+    display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between; 
 }
 
 .logo {
@@ -17,8 +17,32 @@
 
 .user-image, 
 .user-image img {
-    text-align: left;
-    margin-left: 80%;
     width: 60px;
     height: 60px;
+}
+
+.search-bar {
+    flex: 1; 
+    display: flex;
+    justify-content: center;
+
+    form {
+        display: flex;
+        justify-content: center;
+        width: 70%;
+        button {
+            padding: 0px 8px;
+            font-size: 20px;
+            cursor: pointer;
+            height: 38px;
+        }
+    }
+}
+
+input {
+    font-size: 18px;
+    width: 100%; 
+    padding: 5px 5px 5px 10px;
+    height: 38px;
+    outline: none;
 }

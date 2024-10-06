@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import MovieListing from "../MovieListing/MovieListing.js";
 import { useDispatch } from 'react-redux';
 import { fetchMovies, fetchShows } from '../../features/movies/movieSlice.js';
+import GenreFilter from '../GenreFilter/GenreFilter.js';
 
 const Home = () => {
     const dispatch = useDispatch();
