@@ -32,7 +32,6 @@ const MovieListing = () => {
             </div>
         );
     }
-    //console.log(movies);
     return (
         <div className="movie-wrapper">
             <div className="movie-list">

@@ -8,13 +8,18 @@ const MovieDetail = () => {
     const { imdbID } = useParams();
     const dispatch = useDispatch();
     const data = useSelector(getAllMoviesOrShowsDetails);
-    console.log(data);
     useEffect(() => {
         dispatch(fetchMovieOrShowDetail(imdbID));
         return () => {
             dispatch(removeSelectedMovieOrShow());
         };
     }, [dispatch, imdbID]);
+    
+    useEffect(() => {
+        if (data.Genre) {
+            console.log(data.Genre);
+        }
+    }, [data]);
 
     return (
         <div className="movie-section">

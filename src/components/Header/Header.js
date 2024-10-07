@@ -1,19 +1,21 @@
 import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-//import user from "../../images/OIP (1).jpeg";
 import { fetchMovies, fetchShows } from '../../features/movies/movieSlice';
 import "./Header.scss";
 
-const Header = () => {
+const Header = ({ setSearchTerm }) => {
     const [term, setTerm] = useState("");
     const dispatch = useDispatch();
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(fetchMovies(term));
-        dispatch(fetchShows(term));
-        setTerm("");
-    }
+        if(term){
+            setSearchTerm(term); 
+            dispatch(fetchMovies({ movie: term, page: 1 })); 
+            dispatch(fetchShows({ show: term, page: 1 })); 
+            setTerm(""); 
+        }
+    };
     return (
         <div className="header">
             <div className="logo"><Link to="/">Movie App</Link></div>

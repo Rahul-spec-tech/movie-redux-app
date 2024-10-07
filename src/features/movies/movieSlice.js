@@ -3,15 +3,19 @@ import movieApi from '../../common/apis/movieApi';
 import { APIKey } from '../../common/apis/movieApiKey';
 
 export const fetchMovies = createAsyncThunk('movies/fetchMovies',
-    async (movie) => {
-        const response = await movieApi.get(`?apiKey=${APIKey}&s=${movie}&type=movie`);
+    async ({ movie, page }) => {
+        console.log('Fetching Movies with:', { movie, page });
+        const response = await movieApi.get(`?apiKey=${APIKey}&s=${movie}&type=movie&page=${page}`);
+        console.log(response);
         return response.data;
     }
 );
 
 export const fetchShows = createAsyncThunk('movies/fetchShows',
-    async (show) => {
-        const response = await movieApi.get(`?apiKey=${APIKey}&s=${show}&type=series`);
+    async ({ show, page }) => {
+        console.log('Fetching Movies with:', { show, page });
+        const response = await movieApi.get(`?apiKey=${APIKey}&s=${show}&type=series&page=${page}`);
+        console.log(response);
         return response.data;
     }
 );
@@ -29,6 +33,8 @@ const initialState = {
     moviesOrShowsDetail: {},
     loading: false,
     error: null,
+    currentPage: 1, 
+    totalPages: 1   
 };
 
 const movieSlice = createSlice({
@@ -37,6 +43,9 @@ const movieSlice = createSlice({
     reducers: {
         removeSelectedMovieOrShow: (state) => {
             state.selectedMovieOrShow ={};
+        },
+        setPage: (state, action) => { 
+            state.currentPage = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -48,6 +57,7 @@ const movieSlice = createSlice({
         .addCase(fetchMovies.fulfilled, (state, action) => {
             state.loading = false;
             state.movies = action.payload;
+            state.totalPages = Math.ceil(action.payload.totalResults / 10);
         })
         .addCase(fetchMovies.rejected, (state, action) => {
             state.loading = false;
@@ -60,6 +70,7 @@ const movieSlice = createSlice({
         .addCase(fetchShows.fulfilled, (state, action) => {
             state.loading = false;
             state.shows = action.payload;
+            state.totalPages = Math.ceil(action.payload.totalResults / 10);  
         })
         .addCase(fetchShows.rejected, (state, action) => {
             state.loading = false;
@@ -80,8 +91,10 @@ const movieSlice = createSlice({
     },
 });
 
-export const { removeSelectedMovieOrShow} = movieSlice.actions;
+export const { removeSelectedMovieOrShow, setPage } = movieSlice.actions;
 export const getAllMovies = (state) => state.movies.movies;
 export const getAllShows = (state) => state.movies.shows;
 export const getAllMoviesOrShowsDetails = (state) => state.movies.moviesOrShowsDetail;
+export const getCurrentPage = (state) => state.movies.currentPage;  
+export const getTotalPages = (state) => state.movies.totalPages;    
 export default movieSlice.reducer;
