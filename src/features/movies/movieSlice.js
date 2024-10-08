@@ -2,11 +2,20 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import movieApi from '../../common/apis/movieApi';
 import { APIKey } from '../../common/apis/movieApiKey';
 
+// export const fetchMovies = createAsyncThunk('movies/fetchMovies',
+//     async ({ movie, page, genres }) => {
+//         console.log('Fetching Movies with:', { movie, page });
+//         const genreQuery = genres.length ? `&genre=${genres.join(",")}` : "";
+//         const response = await movieApi.get(`?apiKey=${APIKey}&s=${movie}&type=movie&page=${page}${genreQuery}`);
+//         return response.data;
+//     }
+// );
+
 export const fetchMovies = createAsyncThunk('movies/fetchMovies',
     async ({ movie, page }) => {
         console.log('Fetching Movies with:', { movie, page });
-        const response = await movieApi.get(`?apiKey=${APIKey}&s=${movie}&type=movie&page=${page}`);
-        console.log(response);
+        const response = await movieApi.get(`?apiKey=${APIKey}&s=${movie}&type=movie&page=${page}&Plot=full`);
+        console.log(response.data);
         return response.data;
     }
 );
@@ -57,7 +66,7 @@ const movieSlice = createSlice({
         .addCase(fetchMovies.fulfilled, (state, action) => {
             state.loading = false;
             state.movies = action.payload;
-            state.totalPages = Math.ceil(action.payload.totalResults / 10);
+            state.totalPages = action.payload.totalResults ? Math.ceil(action.payload.totalResults / 10): 1;
         })
         .addCase(fetchMovies.rejected, (state, action) => {
             state.loading = false;
@@ -70,7 +79,7 @@ const movieSlice = createSlice({
         .addCase(fetchShows.fulfilled, (state, action) => {
             state.loading = false;
             state.shows = action.payload;
-            state.totalPages = Math.ceil(action.payload.totalResults / 10);  
+            state.totalPages = action.payload.totalResults ? Math.ceil(action.payload.totalResults / 10): 1;
         })
         .addCase(fetchShows.rejected, (state, action) => {
             state.loading = false;

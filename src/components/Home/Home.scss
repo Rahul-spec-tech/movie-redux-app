@@ -25,7 +25,20 @@
 }
 
 .genre-checkbox {
+    display: flex;
+    align-items: center;
     margin-bottom: 10px;
+}
+
+.genre-checkbox input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+}
+
+.genre-checkbox label {
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .pagination {

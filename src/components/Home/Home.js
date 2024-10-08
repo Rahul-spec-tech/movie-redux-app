@@ -9,15 +9,15 @@ import './Home.scss';
 const Home = () => {
     const dispatch = useDispatch();
     const [selectedGenres, setSelectedGenres] = useState([]);
-    const [searchTerm, setSearchTerm] = useState("Avatar");
+    const [searchTerm, setSearchTerm] = useState("Star");
     const movies = useSelector(getAllMovies);
     const currentPage = useSelector(getCurrentPage);
     const totalPages = useSelector(getTotalPages);
 
     useEffect(() => {
-        dispatch(fetchMovies({ movie: searchTerm, page: currentPage }));
-        dispatch(fetchShows({ show: searchTerm, page: currentPage }));
-    }, [dispatch, currentPage, searchTerm]);
+        dispatch(fetchMovies({ movie: searchTerm, page: currentPage, genres: selectedGenres }));
+        dispatch(fetchShows({ show: searchTerm, page: currentPage, genres: selectedGenres }));
+    }, [dispatch, currentPage, searchTerm, selectedGenres]);
 
     const handleGenreChange = (genre) => {
         setSelectedGenres(prevGenres => 
@@ -32,8 +32,8 @@ const Home = () => {
 
     const filteredMovies = movies.Response === "True" && Array.isArray(movies.Search)
         ? movies.Search.filter(movie => {
-            const movieGenres = typeof movie.Genre === 'string' ? movie.Genre.split(", ") : [];
-            return !selectedGenres.length || selectedGenres.some(genre => movieGenres.includes(genre));
+            const movieGenres = typeof movie.Genre === 'string' ? movie.Genre.split(", ").map(gen => gen.toLowerCase()) : [];
+            return selectedGenres.length === 0 || selectedGenres.some(genre => movieGenres.includes(genre.toLowerCase()));
         })
         : [];
 
