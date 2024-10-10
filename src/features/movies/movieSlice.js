@@ -5,26 +5,28 @@ import { APIKey } from '../../common/apis/movieApiKey';
 // export const fetchMovies = createAsyncThunk('movies/fetchMovies',
 //     async ({ movie, page, genres }) => {
 //         console.log('Fetching Movies with:', { movie, page });
-//         const genreQuery = genres.length ? `&genre=${genres.join(",")}` : "";
-//         const response = await movieApi.get(`?apiKey=${APIKey}&s=${movie}&type=movie&page=${page}${genreQuery}`);
+//         const genreQuery = genres.length ? &genre=${genres.join(",")} : "";
+//         const response = await movieApi.get(?apiKey=${APIKey}&s=${movie}&type=movie&page=${page}${genreQuery});
 //         return response.data;
 //     }
 // );
 
 export const fetchMovies = createAsyncThunk('movies/fetchMovies',
-    async ({ movie, page }) => {
-        console.log('Fetching Movies with:', { movie, page });
-        const response = await movieApi.get(`?apiKey=${APIKey}&s=${movie}&type=movie&page=${page}&Plot=full`);
+    async ({ movie, page, year }) => {
+        console.log('Fetching Movies with:', { movie, page, year });
+        const yearFilter = year ? `&y=${year}` : ''; 
+        const response = await movieApi.get(`?apiKey=${APIKey}&s=${movie}&type=movie&page=${page}${yearFilter}`);
         console.log(response.data);
         return response.data;
     }
 );
 
 export const fetchShows = createAsyncThunk('movies/fetchShows',
-    async ({ show, page }) => {
-        console.log('Fetching Movies with:', { show, page });
-        const response = await movieApi.get(`?apiKey=${APIKey}&s=${show}&type=series&page=${page}`);
-        console.log(response);
+    async ({ show, page, year }) => { 
+        console.log('Fetching Shows with:', { show, page, year });
+        const yearFilter = year ? `&y=${year}` : ''; 
+        const response = await movieApi.get(`?apiKey=${APIKey}&s=${show}&type=series&page=${page}${yearFilter}`);
+        console.log(response.data);
         return response.data;
     }
 );

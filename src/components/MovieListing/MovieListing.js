@@ -1,24 +1,21 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { getAllMovies, getAllShows } from '../../features/movies/movieSlice';
 import MovieCard from '../MovieCard/MovieCard';
 import "./MovieListing.scss";
 
-const MovieListing = () => {
-    const movies = useSelector(getAllMovies);
-    const shows = useSelector(getAllShows);
+const MovieListing = ({ movies, shows }) => { 
     let renderMovies;
-    if (movies.Response === "True") {
-        renderMovies = movies.Search.map((movie, index) => (
+    if (movies.length > 0) {
+        renderMovies = movies.map((movie, index) => (
             <MovieCard key={index} data={movie} />
         ));
-    } else {
+      } 
+      else {
         renderMovies = (
-            <div className="movies-error">
-                <h3>No Movies Found</h3>
-            </div>
+          <div className="movies-error">
+            <h3>No Movies Found</h3>
+          </div>
         );
-    }
+      }
 
     let renderShows;
     if (shows.Response === "True") {

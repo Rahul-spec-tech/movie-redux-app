@@ -24,19 +24,19 @@
     margin-bottom: 15px;
 }
 
-.genre-checkbox {
+.genre-checkbox, .year-checkbox {  
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
 
-.genre-checkbox input[type="checkbox"] {
+.genre-checkbox input[type="checkbox"], .year-checkbox input[type="checkbox"] {  
     margin-right: 10px;
     width: 18px;
     height: 18px;
 }
 
-.genre-checkbox label {
+.genre-checkbox label, .year-checkbox label { 
     font-size: 16px;
     cursor: pointer;
 }

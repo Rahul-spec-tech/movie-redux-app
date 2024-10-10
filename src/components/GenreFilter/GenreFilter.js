@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react'; 
 
 const genres = ["Action", "Horror", "Thriller", "Slasher", "Comedy", "Drama", 
     "Fantasy", "Sci-Fi", "Adventure", "Animation", "Biography", 
@@ -7,11 +7,23 @@ const genres = ["Action", "Horror", "Thriller", "Slasher", "Comedy", "Drama",
     "Adventure-Comedy", "Fantasy-Adventure", "Psychological", 
     "Historical Fiction", "Political", "Superhero", 
     "Dystopian", "Post-Apocalyptic"];
-const GenreFilter = ({ selectedGenres, handleGenreChange }) => {
+
+const years = [2009, 2018]; 
+
+const GenreFilter = ({ selectedGenres, handleGenreChange, selectedYears, handleYearChange }) => {
     const handleCheckbox = (genre) => {
-        console.log(`Selected genre: ${genre}`);
         handleGenreChange(genre); 
+        console.log('Selected Genre:', genre); 
     };
+
+    const handleYearCheckbox = (year) => {
+        handleYearChange(year);
+        console.log('Selected Year:', year); 
+    };
+    useEffect(() => {
+        console.log('Currently Selected Years:', selectedYears);
+    }, [selectedYears]);
+
     return (
         <div className="genre-filter">
             <h2><center>Genre</center></h2>
@@ -22,7 +34,16 @@ const GenreFilter = ({ selectedGenres, handleGenreChange }) => {
                     </label>
                 </div>
             ))}
+            <h2><center>Year</center></h2> 
+            {years.map((year) => (
+                <div key={year} className="year-checkbox">
+                    <label>
+                        <input type="checkbox" value={year} checked={selectedYears.includes(year)} onChange={() => handleYearCheckbox(year)}/>{year}
+                    </label>
+                </div>
+            ))}
         </div>
     );
 };
+
 export default GenreFilter;
