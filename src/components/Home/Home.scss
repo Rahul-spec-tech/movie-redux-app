@@ -16,6 +16,17 @@
     padding-left: 0px;
 }
 
+.genre-card button {
+    background-color: #007bff; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
 .main-content {
     flex-grow: 1;
 }

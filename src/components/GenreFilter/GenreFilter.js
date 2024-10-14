@@ -8,7 +8,7 @@ const genres = ["Action", "Horror", "Thriller", "Slasher", "Comedy", "Drama",
     "Historical Fiction", "Political", "Superhero", 
     "Dystopian", "Post-Apocalyptic"];
 
-const years = [2009, 2018]; 
+const years = [2009, 2012, 2014, 2016, 2018, 2021]; 
 
 const GenreFilter = ({ selectedGenres, handleGenreChange, selectedYears, handleYearChange }) => {
     const handleCheckbox = (genre) => {
@@ -25,7 +25,7 @@ const GenreFilter = ({ selectedGenres, handleGenreChange, selectedYears, handleY
     }, [selectedYears]);
 
     return (
-        <div className="genre-filter">
+        <div className="genre-filter"> 
             <h2><center>Genre</center></h2>
             {genres.map((genre) => (
                 <div key={genre} className="genre-checkbox">

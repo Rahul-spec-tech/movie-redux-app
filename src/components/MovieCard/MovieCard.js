@@ -13,9 +13,7 @@ const MovieCard = (props) => {
         const fetchDetails = async () => {
             try {
                 const result = await dispatch(fetchMovieOrShowDetail(data.imdbID)).unwrap();
-                if (result && result.Genre) {
-                    setMovieDetail(result);
-                }
+                setMovieDetail(result);
             } catch (error) {
                 console.error('Failed to fetch details:', error);
             }
@@ -37,7 +35,7 @@ const MovieCard = (props) => {
                         <div className="card-info">
                             <h4>{data.Title}</h4>
                             <p>{data.Year}</p>
-                            <p>{movieDetail && movieDetail.Genre ? movieDetail.Genre : "Fetching Genre..."}</p>
+                            <p>{movieDetail ? movieDetail.Genre : "Fetching Genre..."}</p>
                         </div>
                     </div>
                 </div>
