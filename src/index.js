@@ -5,6 +5,8 @@ import App from './App';
 import { Provider } from "react-redux";
 import reportWebVitals from './reportWebVitals';
 import { store } from './features/movies/store';
+import 'font-awesome/css/font-awesome.min.css';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
